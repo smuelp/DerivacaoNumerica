@@ -23,7 +23,6 @@ public class DerivacaoNumerica {
         JLabel rotuloOpcao = new JLabel("Escolha uma opção:");
         JComboBox<String> comboBoxOpcao = new JComboBox<>(new String[] {
                 "---------- Selecione um método ----------",
-                "Cálculos Gerais - Explorando x & h",
                 "Derivada por Interpolação Numérica",
                 "Derivada por Diferença Finita (Taylor)",
                 "Segunda Derivada por Diferença Finita",
@@ -106,8 +105,6 @@ public class DerivacaoNumerica {
                 } else {
                     rotuloFuncao.setVisible(false);
                     campoTextoFuncao.setVisible(false);
-                    // double x = Double.parseDouble(campoTextoX.getText());
-                    // double h = Double.parseDouble(campoTextoH.getText());
 
                     try {
                         double x = Double.parseDouble(campoTextoX.getText());
@@ -221,10 +218,6 @@ public class DerivacaoNumerica {
                                     .append("\n");
                             resultado.append("Erro relativo Segunda: ")
                                     .append(formatoDecimal.format(erroRelativoSegunda));
-                        } else if (opcao.equals("Cálculos Gerais - Explorando x & h")) {
-                            double calculosRapidos = calculosGerais(x, h);
-                            resultado.append("Resultado = ").append(formatoDecimal.format(calculosRapidos))
-                                    .append("\n");
                         }
                         // define o resultado na área de texto
                         areaTextoResultado.setText(resultado.toString());
@@ -253,7 +246,6 @@ public class DerivacaoNumerica {
     public static double f(double x) {
         return (3 * x + 9) / 2 - x;
         // return (Math.pow(x, 5) - 3 * Math.pow(x, 2));
-        // return Math.tan(a) * Math.tan(36);
         // return (1.0 / Math.cos(x)) * Math.tan(x); // derivada da secante
         // return -1 * (1 / Math.sin(x)) * 1 / Math.tan(x); // derivada da cossecante
         // return -1 / Math.pow(Math.sin(x), 2); // derivada da cotangente
@@ -261,11 +253,6 @@ public class DerivacaoNumerica {
     }
 
     // métodos para cálculo de derivadas numéricas
-
-    public static double calculosGerais(double x, double h) {
-        return x / h;
-    }
-
     public static double derivadaProgressivaOrdem1(double x, double h) {
         return (f(x + h) - f(x)) / h;
     }
@@ -295,7 +282,7 @@ public class DerivacaoNumerica {
     }
 
     public static double taylorOrdem2(double x, double h) {
-        return (f(x - h) - 2 * f(x) + f(x + h)) / (h * h) + 0.008;
+        return (f(x - h) - 2 * f(x) + f(x + h)) / (h * h);
     }
 
     public static double segundaDerivadaDiferencaFinita(double x, double h) {
@@ -311,26 +298,6 @@ public class DerivacaoNumerica {
         String[] termos = expressao.split("\\+");
 
         StringBuilder derivada = new StringBuilder();
-
-        if (expressao.equals("sin(x)")) {
-            return "cos(x)";
-        } else if (expressao.equals("cos(x)")) {
-            return "-sin(x)";
-        } else if (expressao.equals("tan(x)")) {
-            return "sec^2(x)";
-        } else if (expressao.equals("sec(x)")) {
-            return "sec(x)tan(x)";
-        } else if (expressao.equals("csc(x)")) {
-            return "-csc(x)cot(x)";
-        } else if (expressao.equals("cot(x)")) {
-            return "-csc^2(x)";
-        } else if (expressao.equals("ln(x^3+7)")) {
-            return "3/x";
-        } else if (expressao.equals("log(x)")) {
-            return "1/(xln(10))";
-        } else if (expressao.equals("e^x")) {
-            return "e^x"; // Derivative of e^x is e^x
-        }
 
         for (String termo : termos) {
             String[] partes = termo.split("x\\^");
@@ -409,33 +376,10 @@ public class DerivacaoNumerica {
         // remover espaços da expressão
         expressao = expressao.replace(" ", "");
 
-        // Substituir "*" por "" e "." por "*"
-        // expressao = expressao.replace("*", "").replace(".", "*");
-
         // parse da expressão
         String[] termos = expressao.split("\\+");
 
         StringBuilder derivada = new StringBuilder();
-
-        if (expressao.equals("cos(x)")) {
-            return "-sin(x)";
-        } else if (expressao.equals("-sin(x)")) {
-            return "-cos(x)";
-        } else if (expressao.equals("sec^2(x)")) {
-            return "2sec^2(x)tan(x)";
-        } else if (expressao.equals("sec(x)tan(x)")) {
-            return "sec(x)tan(x)^2 + sec(x)^3";
-        } else if (expressao.equals("-csc(x)cot(x)")) {
-            return "2csc(x)cot(x)^2 - csc(x)^2csc(x)cot(x)";
-        } else if (expressao.equals("-csc^2(x)")) {
-            return "-2csc(x)^2 * cot(x)";
-        } else if (expressao.equals("3/x")) {
-            return "-3/x^2";
-        } else if (expressao.equals("1/(xln(10))")) {
-            return "-1/x^2 ln(10)";
-        } else if (expressao.equals("e^x")) {
-            return "e^x"; // Derivative of e^x is e^x
-        }
 
         for (String termo : termos) {
             String[] partes = termo.split("x\\^");
